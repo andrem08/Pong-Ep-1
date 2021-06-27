@@ -30,6 +30,7 @@ public class Player {
     double speed;
 
     public Player(double cx, double cy, double width, double height, Color color, String id, double [] v_limit, double speed){
+        //Construindo o jogador com os parâmetros dados
         this.cx = cx;
         this.cy = cy;
         this.width = width;
@@ -60,6 +61,8 @@ public class Player {
      */
 
     public void moveUp(long delta){
+        //Move o jogador para cima, por delta (tempo)
+        //Não move caso colida com o chao. Nao recebe as coordenadas, mas é aproximadamente 70.
         if (cy - height > 70)
             for (long i = 0; i < delta; i++)
                 this.cy--;
@@ -72,8 +75,9 @@ public class Player {
 
      @param delta quantidade de millisegundos que se passou entre o ciclo anterior de atualização do jogo e o atual.
      */
-
     public void moveDown(long delta){
+        //Move o jogador para cima, por delta (tempo)
+        //Não move caso colida com o topo. Nao recebe as coordenadas, mas é aproximadamente 630.
         if (cy + height < 630)
             for (long i = 0; i < delta; i++)
                 this.cy++;
