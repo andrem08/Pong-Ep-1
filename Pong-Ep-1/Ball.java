@@ -32,13 +32,18 @@ public class Ball {
     double vector_y;
 
     public Ball(double cx, double cy, double width, double height, Color color, double speed){
+        //Construindo a bola
         this.cx = cx;
         this.cy = cy;
         this.width = width;
         this.height = height;
         this.color = color;
         this.speed = speed;
-
+     
+        //Criando aleatoriamente os valores dos vetores velocidades.
+        //Caso forem menores do que 0.3 refaz.
+        //Vale ressaltar que os vetores velocidade não seguem a igualdade triangular
+        // vector_x^2 + vector_y^2 nem sempre é igual a 1
         while (this.vector_x < 0.3 && this.vector_x > -0.3)
             this.vector_x = ((random.nextDouble() * 2) - 1)*this.speed;
         while (this.vector_y < 0.3 && this.vector_y > -0.3)
@@ -63,6 +68,7 @@ public class Ball {
 
     public void update(long delta){
         for (long i = 0; i < delta; i++) {
+            //Tanto cx quanto cy se imcrementam em delta (tempo)
             cx = cx + vector_x;
             cy = cy + vector_y;
         }
@@ -75,6 +81,7 @@ public class Ball {
      */
 
     public void onPlayerCollision(String playerId){
+        //Se encontrar com um jogador, o vetor vector_x inverte
         vector_x = -vector_x;
     }
 
@@ -85,6 +92,7 @@ public class Ball {
      */
 
     public void onWallCollision(String wallId) {
+        //Se encontrar com uma parede, dependendo da parede alterna os valores de vector_x ou vertor_y
         switch (wallId) {
             case "Left":
                 vector_x = Math.abs(vector_x);
@@ -108,7 +116,8 @@ public class Ball {
      */
 
     public boolean checkCollision(Wall wall) {
-
+        //Identifica qual parede é, e verifica se passou do hitbox da parede
+        //Se sim, então retorna true, caso contrario false
         switch (wall.getId()){
             case "Left":
                 if (cx - width/2 < wall.getCx() + wall.getWidth()/2)
@@ -139,6 +148,8 @@ public class Ball {
      */
 
     public boolean checkCollision(Player player){
+        //Identifica qual jogador é, da esquerda ou da direita, e verifica se passou do hitbox do jogador
+        //Se sim, então retorna true, caso contrario false
         if (!(cy - height/2 < player.cy + player.height/2 && cy + height/2 > player.cy - player.height/2))
             return false;
         switch (player.getId()) {
