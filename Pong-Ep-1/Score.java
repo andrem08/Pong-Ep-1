@@ -18,6 +18,7 @@ public class Score {
     int aligh;
 
     public Score(String playerId){
+        //Constroi o score do jogador
         this.playerId = playerId;
         if (playerId.equals("Player 1"))
             aligh = 0;
@@ -29,6 +30,7 @@ public class Score {
      */
 
     public void draw(){
+        //Mostra na tela a string playerId, com a cor verde ou azul.
         if(playerId == "Player 1")
             GameLib.setColor(Color.GREEN);
         else GameLib.setColor(Color.BLUE);
